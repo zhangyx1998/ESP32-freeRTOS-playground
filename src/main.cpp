@@ -27,7 +27,7 @@ void myTask2(void *pvParam) {
 }
 
 void setup() {
-  Serial.begin();
+  Serial.begin(115200);
   // Wait for serial monitor to startup.
   delay(1000);
 
