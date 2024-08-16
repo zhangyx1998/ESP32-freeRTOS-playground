@@ -1,7 +1,12 @@
-#include <Arduino.h>
 #include "freertos/FreeRTOS.h" // IWYU pragma: export
 #include "freertos/task.h"
-#include <stdio.h>
+#include <Arduino.h>
+
+#include <print.h>
+
+namespace global {
+char out_buf[256];
+}
 
 void myTask1(void *pvParam) {
   printf("[TASK 1] launched\n");
@@ -22,6 +27,10 @@ void myTask2(void *pvParam) {
 }
 
 void setup() {
+  Serial.begin();
+  // Wait for serial monitor to startup.
+  delay(1000);
+
   TaskHandle_t pxHandle1;
   TaskHandle_t pxHandle2;
 
@@ -53,8 +62,6 @@ void setup() {
 
   vTaskSuspend(pxHandle2);
   printf("[ MAIN ] Task 2 suspended\n");
-
-  printf("[ MAIN ] ---------------- Testing priority ---------------\n");
 }
 
 void loop() {}
